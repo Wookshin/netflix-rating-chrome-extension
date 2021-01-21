@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+ 
+  "name": "NN-rating",
+  "description": "You can see the NAVER rating of neflix movies ",
+  "version": "1.0",
+ 
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ]
+}
