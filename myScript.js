@@ -8,30 +8,43 @@ document.querySelector("#user").addEventListener("keyup", function () {
     },
     ([result] = []) => {
       if (!chrome.runtime.lastError) {
-        document.querySelector("#result").innerText += result.movies; // shown in devtools of the popup window
+        document.querySelector("#result").innerText += result.movie; // shown in devtools of the popup window
       }
     }
   );
 });
 
 function inContent() {
-  var parent = document.querySelectorAll(".sliderContent");
-  var movies = "";
-  for (var children of parent) {
-    console.log(1);
-    if (!children) break;
-
-    var child = children.firstElementChild;
-    while (child) {
-      movies += child.firstElementChild.firstElementChild.firstElementChild.firstElementChild.getAttribute(
-        "aria-label"
-      );
-      child = child.nextElementSibling;
+  const userAction = async (moive) => {
+    const response = await fetch('https://openapi.naver.com/v1/search/movie.xml?query='+moive, {
+      headers: {
+        'X-Naver-Client-Id': 'QTDpPsZMRYtMqBUdl6jw',
+        'X-Naver-Client-Secret':'c6JHcn2LPr'
     }
+    });
+    const myJson = await response.json(); //extract JSON from the http response
+    // do something with myJson
+    console.log(myJson);
   }
+
+  var children = document.querySelectorAll(".title-card-container");
+  
+  var movie = "";
+  for (var child of children) {
+    if (!child) continue;
+
+    movie = child.firstElementChild.firstElementChild.firstElementChild.getAttribute("aria-label").trim();
+    console.log(movie);
+    userAction(movie);
+    break;
+  }
+
+  // console.log(movies);
 
   return {
     success: true,
-    movies: movies,
+    movie: movie,
   };
 }
+
+
