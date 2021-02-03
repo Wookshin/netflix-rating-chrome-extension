@@ -41,17 +41,41 @@ const getRating = (moive, f) => {
 
 4. Server로부터 가져온 Rating을 Card에 붙이기
 var target = children[0].firstElementChild.firstElementChild.firstElementChild.firstElementChild
-var div = document.createElement("div");
-div.textContent = "TEST"
-target.appendChild(div);
-div.id = "divId"
-div.style.fontSize="30px"
-div.style.position = "absolute"
-div.style.top = "0"
-div.style.right = "0"
+var span = document.createElement("span");
+span.textContent = "4.5"
+target.appendChild(span);
+span.style.height="3rem";
+span.style.width = "3rem";
+span.style.backgroundColor = "rgb(62, 226, 57)";
+span.style.borderRadius = "50%";
+span.style.color = 'white';
+span.style.fontSize = '1.8rem';
+span.style.display = 'flex'; 
+span.style.justifyContent = 'center';
+span.style.top = '0';
+span.style.right = '0';
+	
 
-
-
+<!doctype html>
+<html>
+  <head>
+    <style type="text/css">
+      .dot {
+        height: 25px;
+        width: 25px;
+        background-color: rgb(62, 226, 57);
+        border-radius: 50%;
+        color: white;
+        font-size: 1em;
+        display: flex; 
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="dot">4.5</span>
+  </body>
+</html>
 
 
 
