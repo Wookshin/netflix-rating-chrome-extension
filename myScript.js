@@ -15,27 +15,28 @@ document.querySelector("#user").addEventListener("keyup", function () {
 });
 
 function inContent() {
-  const userAction = async (moive) => {
-    const response = await fetch('https://openapi.naver.com/v1/search/movie.xml?query='+moive, {
+  const userAction = (moive) => {
+    fetch("http://localhost:3000/api/movie/" + movie, {
       headers: {
-        'X-Naver-Client-Id': 'QTDpPsZMRYtMqBUdl6jw',
-        'X-Naver-Client-Secret':'c6JHcn2LPr'
-    }
-    });
-    const myJson = await response.json(); //extract JSON from the http response
-    // do something with myJson
-    console.log(myJson);
-  }
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+    }).then((res)=>res.json())
+    .then((myJson)=>console.log(JSON.stringify(myJson)));
+  };
 
   var children = document.querySelectorAll(".title-card-container");
-  
+
   var movie = "";
   for (var child of children) {
     if (!child) continue;
 
-    movie = child.firstElementChild.firstElementChild.firstElementChild.getAttribute("aria-label").trim();
+    movie = child.firstElementChild.firstElementChild.firstElementChild
+      .getAttribute("aria-label")
+      .trim();
     console.log(movie);
     userAction(movie);
+
     break;
   }
 
@@ -46,5 +47,3 @@ function inContent() {
     movie: movie,
   };
 }
-
-
