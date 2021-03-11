@@ -1,10 +1,9 @@
-
 document.querySelector("#chkRating").addEventListener("change", function () {
   console.log("in Extension");
   if(this.checked) {
     chrome.tabs.executeScript(
       {
-        code: `(${inContent})()`,
+        code: `setInterval((${inContent}), 2000)`,
       },
       ([result] = []) => {
         if (!chrome.runtime.lastError) {
@@ -20,15 +19,30 @@ document.querySelector("#chkRating").addEventListener("change", function () {
 });
 
 function inContent() {
-  const fn_SetRating = async (name, target) => {
-    let response = await fetch('http://localhost:3000/movie/'+name);
-    let myJson = await response.json();
-    let span;
-    let rating = myJson["rating"];
+  const fn_SetRating = async (names, targets) => {
+    let data = {
+      names : names
+    }
 
-    console.log(name, rating, target);
-    span = fn_GetSpan(rating);
-    target.appendChild(span);
+    let response = await fetch('http://localhost:3000/movie/', {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(data), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+    let myJson = await response.json();
+
+    console.log(myJson);
+
+    let span;
+
+    for(let i=0; i<myJson["list"].length; i++){    
+      span = fn_GetSpan(myJson["list"][i]["rating"]);
+      targets[i].appendChild(span);
+    }
+
+    //console.log(name, rating, target);
   }
 
   const fn_GetSpan = (rating) => {
@@ -49,9 +63,13 @@ function inContent() {
     return span;
   }
 
+  console.log("inContent");
+
   let children = document.querySelectorAll(".title-card-container");
   let movieName;
+  let movieNames = [];
   let target;
+  let targets = [];
 
   for (var child of children) {
     if (!child) continue;
@@ -61,10 +79,13 @@ function inContent() {
       movieName = target?.firstElementChild?.nextElementSibling?.firstElementChild?.textContent?.trim();
 
       if(movieName != undefined){
-        fn_SetRating(movieName, target);
+        targets.push(target);
+        movieNames.push(movieName);
       }
     }
   }
+
+  fn_SetRating(movieNames, targets);
 
   return {
     success: true,
@@ -72,5 +93,3 @@ function inContent() {
     //rating: rating
   };
 }
-
-
