@@ -1,24 +1,47 @@
 <!doctype html>
 <html>
   <head>
-     
+     <meta charset="UTF-8">
     <style>
       body{
         width:400px;
-        padding:1rem;
+        background-color: ivory;
       }
-      textarea{
-        width:100%;
-        font-size:2rem;
+      h1 {
+        text-align: center;
       }
-      #result{
-        font-size:2.5rem;
+      label {
+        font-size: 1.3em;
+        margin-right: 10px;
+        font-weight: bold;
       }
+      #radioContent {
+        margin-bottom: 10px;
+        text-align:center;
+      }
+      .radioSpan {
+        margin-right: 20px;
+        margin-left: 10px;
+      }
+
     </style>
   </head>
   <body>
-    <h2>Netfix Naver Rating <input type="checkbox" id="chkRating" name="rating-on" value="RATING ON" checked> </h2> 
-    <div id="result"></div>
+    <h1><span style="color: red;">NETFLIX</span> & <span style="color:green">NAVER</span></h1> 
+    <div id="radioContent">
+      <span class='radioSpan'>
+        <label for="actual">관람객</label>
+        <input type="radio" id="actual" name="rating" value="actualRating">
+      </span>
+      <span class='radioSpan'>
+        <label for="netizen">네티즌</label>
+        <input type="radio" id="netizen" name="rating" value="netizenRating">
+      </span>
+      <span class='radioSpan'>
+        <label for="expert">전문가</label>
+        <input type="radio" id="expert" name="rating" value="expertRating">
+      </span>
+    </div>
     <script src="myScript.js"></script>
   </body>
 </html>
