@@ -23,22 +23,30 @@
         margin-right: 20px;
         margin-left: 10px;
       }
-
+      #actualLabel {
+        color: green;
+      }
+      #netizenLabel {
+        color: rgb(0, 0, 255);
+      }
+      #expertLabel {
+        color: rgb(102, 102, 0);
+      }
     </style>
   </head>
   <body>
     <h1><span style="color: red;">NETFLIX</span> & <span style="color:green">NAVER</span></h1> 
     <div id="radioContent">
       <span class='radioSpan'>
-        <label for="actual">관람객</label>
+        <label id="actualLabel" for="actual">관람객</label>
         <input type="radio" id="actual" name="rating" value="actualRating">
       </span>
       <span class='radioSpan'>
-        <label for="netizen">네티즌</label>
+        <label id="netizenLabel" for="netizen">네티즌</label>
         <input type="radio" id="netizen" name="rating" value="netizenRating">
       </span>
       <span class='radioSpan'>
-        <label for="expert">전문가</label>
+        <label id="expertLabel" for="expert">전문가</label>
         <input type="radio" id="expert" name="rating" value="expertRating">
       </span>
     </div>
