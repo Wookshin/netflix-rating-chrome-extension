@@ -1,4 +1,4 @@
-const fn_SetRating = async (newMovies) => {
+var fn_AddRatingMark = async (newMovies) => {
   console.log("newMovies(fn_SetRating)",newMovies);
   let names = [];
   for(let movie of newMovies){
@@ -24,52 +24,95 @@ const fn_SetRating = async (newMovies) => {
       if(movie.name === rtnVal.name){
         console.log(movie.name, selectedValue, rtnVal);
 
-        span = fn_GetSpan(rtnVal[selectedValue]);
+        span = fn_CreateRatingMark("actualRating", rtnVal["actualRating"]);
         movie.target.appendChild(span);
+        span = fn_CreateRatingMark("netizenRating", rtnVal["netizenRating"]);
+        movie.target.appendChild(span);
+        span = fn_CreateRatingMark("expertRating", rtnVal["expertRating"]);
+        movie.target.appendChild(span);
+
       }
     }
   }
 }
 
-const fn_GetSpan = (rating) => {
-  // let span = document.createElement("span");
-  let span = createElement("span");
-  span.textContent = rating;
-  span.style.height="3rem";
-  span.style.width = "3rem";
-  span.style.backgroundColor = "rgb(62, 226, 57)";
-  span.style.borderRadius = "50%";
-  span.style.color = 'white';
-  span.style.fontSize = '1.8rem';
-  span.style.display = 'flex'; 
-  span.style.justifyContent = 'center';
-  span.style.top = '0';
-  span.style.right = '0';
-  span.style.position = 'absolute';
+var fn_CreateRatingMark = (className, rating) => {
+  let ratingMark = document.createElement("span");
+  ratingMark.className = className;
+  ratingMark.textContent = rating;
+  ratingMark.style.height="3rem";
+  ratingMark.style.width = "3rem";
+  if(className === "actualRating"){
+    ratingMark.style.backgroundColor = "green";
+  }
+  else if(className === "netizenRating"){
+    ratingMark.style.backgroundColor = "rgb(0, 0, 255)";
+  } 
+  else if(className === "expertRating"){
+    ratingMark.style.backgroundColor = "rgb(102, 102, 0)";
+  }
 
-  return span;
+  ratingMark.style.borderRadius = "50%";
+  ratingMark.style.color = 'white';
+  ratingMark.style.fontSize = '1.8rem';
+  ratingMark.style.display = 'flex'; 
+  ratingMark.style.justifyContent = 'center';
+  ratingMark.style.top = '0';
+  ratingMark.style.right = '0';
+  ratingMark.style.position = 'absolute';
+
+  console.log(selectedValue, className, rating);
+  if(selectedValue === className){
+    ratingMark.style.display = 'inline-block';
+  }
+  else{
+    ratingMark.style.display = 'none';
+  }
+
+  return ratingMark;
+}
+
+var fn_SetRatingDisplay = () => {
+  if(document.oldSelectedValue !== selectedValue){
+    let spanList = document.querySelectorAll(".actualRating, .netizenRating, .expertRating");
+    for(span of spanList){
+      if(span.className === selectedValue){
+        span.style.display = 'inline-block';
+      }
+      else {
+        span.style.display = 'none';
+      }
+    }
+
+    if(intervalId !== undefined){
+      clearInterval(intervalId);
+    }
+  }
+}
+
+var fn_InitVariables = () => {
+  if(document.movieCount == undefined){
+    document.movieCount = 0;
+  }
+  if(document.oldSelectedValue == undefined){
+    document.oldSelectedValue = selectedValue;
+  }
 }
 
 function inContent() {
   console.log("inContent() Start");
 
-  // let children = document.querySelectorAll(".title-card-container");
-  let children = querySelectorAll(".title-card-container");
+  let children = document.querySelectorAll(".title-card-container");
 
-  // if(oldSelectedValue == undefined){
+  fn_InitVariables();
 
-  // }
+  console.log("oldValue:",document.oldSelectedValue, "newValue:",selectedValue)
 
-  // if(document.movieCount == undefined){
-  if(movieCount == undefined){
-    // document.movieCount = 0;
-    movieCount = 0;
-  }
-  // console.log("movieCount: ", document.movieCount, "children.length", children.length);
-  console.log("movieCount: ", movieCount, "children.length", children.length);
+  fn_SetRatingDisplay();
+ 
+  console.log("movieCount:", document.movieCount, "children.length:", children.length);
 
-  // if(document.movieCount == children.length){
-  if(movieCount == children.length){
+  if(document.movieCount == children.length){
     return;
   }
 
@@ -79,11 +122,8 @@ function inContent() {
   let target;
   let targets = [];
 
-  // if(document.oldMovieNames == undefined){
-  if(oldMovieNames == undefined){
-    console.log("??");
-    // document.oldMovieNames = [];
-    oldMovieNames = [];
+  if(document.oldMovieNames == undefined){
+    document.oldMovieNames = [];
   }
 
   for (var child of children) {
@@ -93,42 +133,25 @@ function inContent() {
     if(target != undefined){
       movieName = target?.firstElementChild?.nextElementSibling?.firstElementChild?.textContent?.trim();
 
-      // if(movieName != undefined && document.oldMovieNames.includes(movieName) == false){
-      if(movieName != undefined && oldMovieNames.includes(movieName) == false){
+      if(movieName != undefined && document.oldMovieNames.includes(movieName) == false){
         newMovies.push({name:movieName, target:target});
         targets.push(target);
         newMovieNames.push(movieName);
-        // document.oldMovieNames.push(movieName);
-        oldMovieNames.push(movieName);
+        document.oldMovieNames.push(movieName);
       }
     }
   }
   
-  // console.log(document.movieList);
-  console.log(movieList);
-  //fn_SetRating(newMovieNames, targets);
+  console.log(document.movieList);
+
+  fn_AddRatingMark(newMovies);
   
-  // name 기준으로 정렬
-  // newMovies.sort(function(a, b) {
-  //   var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-  //   var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-  //   if (nameA < nameB) {
-  //     return -1;
-  //   }
-  //   if (nameA > nameB) {
-  //     return 1;
-  //   }
-  //   // 이름이 같을 경우
-  //   return 0;
-  // });
-  
-  fn_SetRating(newMovies);
-  
-  // document.movieCount = children.length;
-  movieCount = children.length;
+  document.oldSelectedValue = selectedValue;
+  document.movieCount = children.length;
 }
 
 inContent();
+var intervalId = setInterval(inContent, 5000);
 
 // var rbs = document.querySelectorAll('input[name="rating"]');
 // for(const rb of rbs){
