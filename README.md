@@ -1,15 +1,20 @@
-## ✨ 넷플릭스 영화 평점 보여주는 App 
+# 넷플릭스 평점 보여주기
 
-### feat. 크롬 확장 프로그램
+<img src="imgs/projects/netflix.png" width="500px" height="500px" title="netflix"/>
 
-### 🎇 다운로드 URL : https://chrome.google.com/webstore/detail/%EB%84%B7%ED%94%8C%EB%A6%AD%EC%8A%A4-%EC%98%81%ED%99%94-%ED%8F%89%EC%A0%90-%EB%B3%B4%EC%97%AC%EC%A3%BC%EA%B8%B0-netflix-n/oonoodkldjdpknicffjgaiidbbneljhi?hl=ko
+<br/>
 
+## URL
+ - https://bit.ly/3tJ7qx6
 
+<br/>
 
+## 사용한 기술 스택
 
-
-
-
+- HTML
+- CSS
+- Vanilla JS
+- 크롬 확장 프로그램 
 
 
 
