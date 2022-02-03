@@ -1,6 +1,6 @@
 # 넷플릭스 평점 보여주기
 
-<img src="https://wookshin.github.io/Portfolio/imgs/projects/netflix.jpg" width="700px" height="500px" title="netflix"/>
+<img src="https://wookshin.github.io/portfolio/imgs/projects/netflix.jpg" width="700px" height="500px" title="netflix"/>
 
 <br/>
 
