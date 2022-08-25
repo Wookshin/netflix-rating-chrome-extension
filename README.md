@@ -1,5 +1,7 @@
 # 넷플릭스 평점 보여주기
 
+**현재는 서비스 중지했습니다.**
+
 <img src="https://wookshin.github.io/portfolio/imgs/projects/netflix.jpg" width="700px" height="500px" title="netflix"/>
 
 <br/>
